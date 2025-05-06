@@ -33,5 +33,6 @@ If you have questions, run `pokefetcher -h`, examine the script, or [submit an i
 # Planned Changes
 I might add all of these, I may add none, but they are things that I would like to see in the program.
 
-- TLDR Page
+- TLDR (Teal Deer) Page
 - Support for more verbose evolution details (level, other requirements)
+- --egg-group, --stats, and --gender-ratio flags
