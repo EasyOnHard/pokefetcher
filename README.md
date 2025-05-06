@@ -17,7 +17,7 @@ To use the program, you run `zsh pokefetcher.zsh -p <pokemon> [Flags]`. The flag
 # Installation
 The program is just a Z Shell script, so you can just download it and use it as is, but you can also remove the extension, grant it execution privileges, and then add it to PATH to run it from anywhere. 
 
-I am not a Linux wiz, so I don't want to give a full guide for safty's sake, but here is what I have done:
+I am not a Linux wiz, so I don't want to give a full guide for saftey's sake, but here is what I have done:
 
 `mv pokefetcher.zsh pokefetcher`
 
@@ -28,7 +28,7 @@ Add where ever the file is to PATH in `~/.zshrc` or move it to `/bin`. You can a
 And just like that, you should be able to run the file from anywhere! Make sure that it doesn't conflict with any other programs!
 
 
-If you have questions, run `pokefetcher -h`, examine the script, or submit an issue. I will try to respond when I can.
+If you have questions, run `pokefetcher -h`, examine the script, or [submit an issue](https://github.com/EasyOnHard/pokefetcher/issues/new). I will try to respond when I can.
 
 # Planned Changes
 I might add all of these, I may add none, but they are things that I would like to see in the program.
