@@ -4,12 +4,14 @@ Pokefetcher is a program that I made because I like pokemon and I use Linux (arc
 # How does it work?
 The program is quite simple, as intended. It is a small zsh script file that pulls data from [PokeAPI](https://pokeapi.co), which has LOADS of data to pull from. 
 
+![Example of Pokefetcher in Action](img/Example_v1.0.0.png)
+
 As of now (v1.0), the program can pull Evolution Chains, Types, and Variants. 
 
 To use the program, you run `zsh pokefetcher.zsh -p <pokemon> [Flags]`. The flags are as follows:
 
-- -f, --forms: Fetch Variants
 - -t, --types: Fetch Types
+- -f, --forms: Fetch Variants
 - -a, --all-pokemon: Fetch both Types and Forms.
 - -h, --help: View the Help menu
 - -v, --version: Displays Version Number
@@ -17,9 +19,9 @@ To use the program, you run `zsh pokefetcher.zsh -p <pokemon> [Flags]`. The flag
 # Installation
 The program is just a Z Shell script, so you can just download it and use it as is, but you can also remove the extension, grant it execution privileges, and then add it to PATH to run it from anywhere. 
 
-I am not a Linux wiz, so I don't want to give a full guide for saftey's sake, but here is what I have done:
+I am not a Linux wiz, so I don't want to give an `install.sh` for saftey's sake, but here is what I have done:
 
-`mv pokefetcher.zsh pokefetcher`
+`mv pokefetcher.zsh pokefetcher` (Or you can use the [this one](pokefetcher), which is already renamed)
 
 `chmod +x pokefetcher`
 
