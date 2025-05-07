@@ -3,12 +3,13 @@ trap 'rm -f /tmp/raw_species.json' EXIT
 trap 'rm -f /tmp/raw_evolution.json' EXIT
 
 API_URL="https://pokeapi.co/api/v2/"
-VERSION="1.0.0"
+VERSION="1.1.0"
 
 # Flags
 pokemon=""
 types=false
 forms=false
+eggs=false
 help=false
 
 # Fancy Formating
@@ -26,6 +27,7 @@ stage_two=null
 allpokemon() {
     forms=true
     types=true
+    eggs=true
 }
 
 # Flag Settings
@@ -36,6 +38,8 @@ do case $1 in
     -t|--types) types=true
     shift;;
     -f|--forms) forms=true
+    shift;;
+    -e|--egg-groups) eggs=true
     shift;;
     -a|--all-pokemon) allpokemon
     shift;;
@@ -85,6 +89,20 @@ evosfetch() {
     echo "${UNDERLINE}$pokemon${RESET} ${UNDERLINE}$stage_one${RESET} ${UNDERLINE}$stage_two${RESET}\n"
 }
 
+# Egg Group(s)
+eggfetch() {
+    if $eggs; then
+        echo "${BOLD}Egg Groups${RESET}:"
+        cat /tmp/raw_species.json | jq -r '.egg_groups[].name' | sed 's/^/  /'
+    fi
+}
+
+# Stats
+
+
+# Gender Ratio
+
+
 # Main Function
 pokefetch() {
     # Curl the API
@@ -109,10 +127,22 @@ pokefetch() {
     evosfetch
     typesfetch
     formsfetch
+    eggfetch
 }
 
 help() {
-    echo "Welcome to Pokefetcher, a simple PokeAPI interface!\n\nUse:\n pokefetcher -p <pokemon> [flags]\n\nFlags:\n -t, --types       Displays the Pokemon's Typing\n -f, --forms       Displays Variant forms (Regional, GMAX, Mega...)\n -a, --all-pokemon Acts as both --types and --forms\n -h, --help        Displays this here help message!\n -v, --version     Displays current Pokefetcher version"
+    echo "Welcome to Pokefetcher, a simple PokeAPI interface!
+    
+    Use:
+     pokefetcher -p <pokemon> [flags]
+     
+    Flags:
+     -t, --types       Displays the Pokemon's Typing
+     -f, --forms       Displays Variant forms (Regional, GMAX, Mega...)
+     -e, --egg-groups  Displays Egg Groups
+     -a, --all-pokemon Acts as both --types and --forms
+     -h, --help        Displays this here help message!
+     -v, --version     Displays current Pokefetcher version"
 }
 
 if $help; then
