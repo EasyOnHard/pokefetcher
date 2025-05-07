@@ -5,6 +5,7 @@ Pokefetcher is a program that I made because I like pokemon and I use Linux (arc
 The program is quite simple, as intended. It is a small zsh script file that pulls data from [PokeAPI](https://pokeapi.co), which has LOADS of data to pull from. 
 
 ![Example of Pokefetcher in Action](img/Example_v1.0.0.png)
+Above: v1.0.0
 
 As of now (v1.1.0), the program can pull Evolution Chains, Types, and Variants. 
 
