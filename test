@@ -1,0 +1,35 @@
+#!/bin/zsh
+
+# Path to your Pokémon image
+IMAGE="https://play.pokemonshowdown.com/sprites/dex/charmander.png"
+
+BOLD="\e[1m"
+RESET="\e[0m"
+MAGENTA="\e[35m"
+UNDERLINE="\e[4m"
+
+# Clear screen
+tput clear
+
+# Print image at top-left
+kitten icat --place 20x20@5x0  $IMAGE
+
+# Allow image a moment to render (adjust as needed)
+sleep 0.1
+
+# Move cursor to a position to the right of the image
+# You may adjust rows/cols depending on image size and terminal width
+TPUT_ROW=1
+TPUT_COL=35
+
+tprint() {
+    tput cup $TPUT_ROW $TPUT_COL
+    echo $1
+    ((TPUT_ROW++))
+}
+
+tprint "${BOLD}Name: Bulbasaur${RESET}"
+
+tprint "Type: Grass / Poison"
+
+tprint "Evolution: Ivysaur → Venusaur"
