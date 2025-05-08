@@ -3,7 +3,7 @@ trap 'rm -f /tmp/raw_species.json' EXIT
 trap 'rm -f /tmp/raw_evolution.json' EXIT
 
 API_URL="https://pokeapi.co/api/v2/"
-VERSION="1.1.0"
+VERSION="1.2.0"
 
 # Flags
 pokemon=""
@@ -17,11 +17,16 @@ BOLD="\e[1m"
 RESET="\e[0m"
 MAGENTA="\e[35m"
 UNDERLINE="\e[4m"
+TPUT_ROW=1
+TPUT_COL=35
 
 # Container Variables
 curled=""
 stage_one=null
 stage_two=null
+
+# Clear Screen for Image
+tput clear
 
 # Set All Pokemon Variables
 allpokemon() {
@@ -55,6 +60,20 @@ do case $1 in
 esac
 done
 
+# Function for Printing with tput
+tprint() {
+    local Line
+    while IFS= read -r line; do
+        if [[ -n "$KITTY_WINDOW_ID" ]]; then
+            tput cup $TPUT_ROW $TPUT_COL
+            echo "$line"
+            ((TPUT_ROW++))
+        else
+            echo $1
+        fi
+    done <<< "$1"
+}
+
 # Species Data Fetch
 speciesfetch() {
     species_url=$(echo "$curled" | jq -r '.species.url')
@@ -64,16 +83,18 @@ speciesfetch() {
 # Types
 typesfetch() {
     if $types; then
-        echo "${BOLD}Types${RESET}:"
-        echo "$curled" | jq -r '.types[].type.name' | sed 's/^/  /'
+        tprint "${BOLD}Types${RESET}:"
+        tmp_out=$(echo "$curled" | jq -r '.types[].type.name' | sed 's/^/  /')
+        tprint "$tmp_out"
     fi
 }
 
 # Forms
 formsfetch() {
     if $forms; then
-        echo "${BOLD}Forms${RESET}:"
-        cat /tmp/raw_species.json | jq -r '.varieties[].pokemon.name' | sed 's/^/  /'
+        tprint "${BOLD}Forms${RESET}:"
+        tmp_out=$(cat /tmp/raw_species.json | jq -r '.varieties[].pokemon.name' | sed 's/^/  /')
+        tprint "$tmp_out"
     fi
 }
 
@@ -86,7 +107,8 @@ evosfetch() {
     stage_one=$(echo $evolutions | jq -r '.evolves_to[].species.name')
     stage_two=$(echo $evolutions | jq -r '.species.name')
 
-    echo "${UNDERLINE}$pokemon${RESET} ${UNDERLINE}$stage_one${RESET} ${UNDERLINE}$stage_two${RESET}\n"
+    tprint "${BOLD}Evolution Line${RESET}:"
+    tprint " ${UNDERLINE}$pokemon${RESET} ${UNDERLINE}$stage_one${RESET} ${UNDERLINE}$stage_two${RESET}\n"
 }
 
 # Egg Group(s)

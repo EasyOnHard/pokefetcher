@@ -5,6 +5,7 @@ Pokefetcher is a program that I made because I like pokemon and I use Linux (arc
 The program is quite simple, as intended. It is a small zsh script file that pulls data from [PokeAPI](https://pokeapi.co), which has LOADS of data to pull from. 
 
 ![Example of Pokefetcher in Action](img/Example_v1.0.0.png)
+
 Above: v1.0.0
 
 As of now (v1.1.0), the program can pull Evolution Chains, Types, and Variants. 
@@ -40,3 +41,7 @@ I might add all of these, I may add none, but they are things that I would like 
 - TLDR (Teal Deer) Page
 - Support for more verbose evolution details (level, other requirements)
 - ~~--egg-group~~, --stats, and --gender-ratio flags
+- Image support
+
+# Disclaimer
+Pokefetcher is an unofficial tool and is not affiliated with, endorsed, or licensed by the **The Pokémon Company**, **Game Freak**, or **Nintendo**. All Pokémon-related content (including images, names, and other trademarks) are the property of their respective owners. This tool is made for personal use only. I do not own or claim to own any Pokémon-related content gathered or distributed by this program.
