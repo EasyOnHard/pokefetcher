@@ -11,6 +11,8 @@ types=false
 forms=false
 eggs=false
 help=false
+img_type=dex
+img_ext=png
 
 # Fancy Formating
 BOLD="\e[1m"
@@ -47,6 +49,12 @@ do case $1 in
     -e|--egg-groups) eggs=true
     shift;;
     -a|--all-pokemon) allpokemon
+    shift;;
+    --animated-image) 
+        img_type="ani"
+        img_ext="gif"
+    shift;;
+    --shiny-image) img_type="dex-shiny"
     shift;;
     -h|--help) help=true
     shift;;
@@ -104,18 +112,20 @@ evosfetch() {
     evolution_data=$(curl -s "$evolution_url" > /tmp/raw_evolution.json)
     evolutions=$(cat /tmp/raw_evolution.json | jq -r '.chain.evolves_to[]')
 
-    stage_one=$(echo $evolutions | jq -r '.evolves_to[].species.name')
-    stage_two=$(echo $evolutions | jq -r '.species.name')
+    basic=$(cat /tmp/raw_evolution.json | jq -r '.chain.species.name')
+    stage_one=$(echo $evolutions | jq -r '.species.name')
+    stage_two=$(echo $evolutions | jq -r '.evolves_to[].species.name')
 
     tprint "${BOLD}Evolution Line${RESET}:"
-    tprint " ${UNDERLINE}$pokemon${RESET} ${UNDERLINE}$stage_one${RESET} ${UNDERLINE}$stage_two${RESET}\n"
+    tprint " ${UNDERLINE}$basic${RESET} ${UNDERLINE}$stage_one${RESET} ${UNDERLINE}$stage_two${RESET}\n"
 }
 
 # Egg Group(s)
 eggfetch() {
     if $eggs; then
-        echo "${BOLD}Egg Groups${RESET}:"
-        cat /tmp/raw_species.json | jq -r '.egg_groups[].name' | sed 's/^/  /'
+        tprint "${BOLD}Egg Groups${RESET}:"
+        tmp_out=$(cat /tmp/raw_species.json | jq -r '.egg_groups[].name' | sed 's/^/  /')
+        tprint "$tmp_out"
     fi
 }
 
@@ -123,6 +133,13 @@ eggfetch() {
 
 
 # Gender Ratio
+
+
+# Image
+imagefetch() {
+    IMAGE_URL="https://play.pokemonshowdown.com/sprites/$img_type/$pokemon.$img_ext"
+    kitten icat --place 20x20@3x2 --scale-up $IMAGE_URL
+}
 
 
 # Main Function
@@ -137,10 +154,11 @@ pokefetch() {
         exit 1
     fi
 
-    # Echo Name and ID
+    # Echo Name, ID, and Image
     name=$(echo "$curled" | jq -r .name | awk '{print toupper(substr($0,1,1)) tolower(substr($0,2))}')
     id=$(echo "$curled" | jq -r .id)
     echo "${BOLD}${MAGENTA}$name${RESET}, ID:${BOLD}$id${RESET}"
+    imagefetch
 
     # Curl the pokemon-species page for evosfetch and formsfetch
     speciesfetch

@@ -1,7 +1,8 @@
 #!/bin/zsh
 
 # Path to your Pokémon image
-IMAGE="https://play.pokemonshowdown.com/sprites/dex/charmander.png"
+pokemon="zeraora"
+IMAGE="https://play.pokemonshowdown.com/sprites/dex/$pokemon.png"
 
 BOLD="\e[1m"
 RESET="\e[0m"
@@ -12,10 +13,10 @@ UNDERLINE="\e[4m"
 tput clear
 
 # Print image at top-left
-kitten icat --place 20x20@5x0  $IMAGE
+kitten icat --place 20x20@5x0 $IMAGE
 
 # Allow image a moment to render (adjust as needed)
-sleep 0.1
+sleep 0.5
 
 # Move cursor to a position to the right of the image
 # You may adjust rows/cols depending on image size and terminal width
