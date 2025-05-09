@@ -2,7 +2,7 @@
 Pokefetcher is a program that I made because I like pokemon and I use Linux (arch btw), so it was only natural.
 
 # How does it work?
-The program is quite simple, as intended. It is a small zsh script file that pulls data from [PokeAPI](https://pokeapi.co), which has LOADS of data to pull from. 
+The program is quite simple, as intended. It is a small zsh script file that pulls data from [PokéAPI](https://pokeapi.co), which has LOADS of data to pull from. 
 
 ![Example of Pokefetcher in Action](img/Example_v2.1.0.png)
 
@@ -17,7 +17,7 @@ To use the program, you run `zsh pokefetcher.zsh -p <pokemon> [Flags]`. The flag
 - -e, --egg-groups: Displays Egg Groups
 - -a, --all-pokemon: Fetch both Types and Forms.
 - --no-img: No Image
-- --shiny-image: Displays the Image as a Shiny
+- --shiny: Displays the Image as a Shiny
 - --animated-image: Displays the Image as a .gif
 - -h, --help: View the Help menu
 - -v, --version: Displays Version Number

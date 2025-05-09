@@ -3,7 +3,7 @@ trap 'rm -f /tmp/raw_species.json' EXIT
 trap 'rm -f /tmp/raw_evolution.json' EXIT
 
 API_URL="https://pokeapi.co/api/v2/"
-VERSION="2.1.0"
+VERSION="2.1.1"
 
 # Flags
 pokemon=""
@@ -13,6 +13,7 @@ eggs=false
 help=false
 img=true
 img_type=dex
+img_shiny_suffix=""
 img_ext=png
 
 # Fancy Formating
@@ -62,9 +63,8 @@ do case $1 in
         img_type="ani"
         img_ext="gif"
     shift;;
-    --shiny-image) 
-        img_type="dex-shiny"
-        img_ext="png" # Just in case --animated-image and --shiny-image are called, so that it calls for the correct extension
+    --shiny) 
+        img_shiny_suffix="-shiny"
     shift;;
     -h|--help) help=true
     shift;;
@@ -148,8 +148,8 @@ eggfetch() {
 # Image
 imagefetch() {
     if $img; then
-        IMAGE_URL="https://play.pokemonshowdown.com/sprites/$img_type/$pokemon.$img_ext"
-        kitten icat --place $( [[ $img_type == "ani" ]] && echo "14x14" || echo "20x20" )@3x2 --scale-up $IMAGE_URL
+        IMAGE_URL="https://play.pokemonshowdown.com/sprites/$img_type$img_shiny_suffix/$pokemon.$img_ext"
+        kitten icat --place $( [[ $img_type == "ani" ]] && echo "14x14@6x2" || echo "20x20@3x2" ) --scale-up $IMAGE_URL
     fi
 }
 
@@ -193,7 +193,7 @@ help() {
      -e, --egg-groups  Displays Egg Groups
      -a, --all-pokemon Acts as both --types and --forms
      --no-img          No Image
-     --shiny-image     Displays the Image as a Shiny
+     --shiny           Displays the Image as a Shiny
      --animated-image  Displays the Image as a .gif
      -h, --help        Displays this here help message!
      -v, --version     Displays current Pokefetcher version"
